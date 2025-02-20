@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.svg" type="image/x-icon">
+    <title>Prediction Result</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin-top: 2rem;
+            font-size: 1.75rem;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .result-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .prediction-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        /* Predictions Container */
+        .predictions-container {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        /* Individual Prediction Styling */
+        .prediction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .prediction:last-child {
+            border-bottom: none; /* Remove border for the last item */
+        }
+
+        /* Prediction Label Styling */
+        .prediction-label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        /* Prediction Value Styling */
+        .prediction-value {
+            font-weight: 600;
+            color: #007bff; /* Blue color for emphasis */
+            font-size: 14px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        a:hover {
+            background: var(--secondary);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><center>Prediction Result</center></h1>
+
+        <!-- Display Prediction -->
+        <div class="prediction-header">
+            Predicted Cost: ${{ prediction }}
+        </div>
+        <div class="predictions-container">
+            <div class="prediction">
+                <span class="prediction-label">AdaBoost Prediction:</span>
+                <span class="prediction-value">${{ adaboost_prediction }}</span>
+            </div>
+            <div class="prediction">
+                <span class="prediction-label">XGB Prediction:</span>
+                <span class="prediction-value">${{ xgb_prediction }}</span>
+            </div>
+            <div class="prediction">
+                <span class="prediction-label">LGBM Prediction:</span>
+                <span class="prediction-value">${{ lgbm_prediction }}</span>
+            </div>
+            <div class="prediction">
+                <span class="prediction-label">XGBRF Prediction:</span>
+                <span class="prediction-value">${{ xgbrf_prediction }}</span>
+            </div>
+        </div>
+
+          
+
+
+        <!-- Display Form Inputs -->
+        <div class="result-grid">
+
+            <div class="result-item">
+                <strong>Brand</strong>
+                {{ brand }}
+            </div>
+
+            <div class="result-item">
+                <strong>Material</strong>
+                {{ material }}
+            </div>
+
+            <div class="result-item">
+                <strong>Size</strong>
+                {{ size }}
+            </div>
+
+            <div class="result-item">
+                <strong>Compartments</strong>
+                {{ compartments }}
+            </div>
+
+            <div class="result-item">
+                <strong>Laptop Compartment</strong>
+                {{ laptop_compartment }}
+            </div>
+
+            <div class="result-item">
+                <strong>Waterproof</strong>
+                {{ waterproof }}
+            </div>
+
+            <div class="result-item">
+                <strong>Style</strong>
+                {{ style }}
+            </div>
+
+            <div class="result-item">
+                <strong>Color</strong>
+                {{ color }}
+            </div>
+            
+            <div class="result-item">
+                <strong>Weight Capacity</strong>
+                {{ weight_capacity if weight_capacity else "Not Specified" }}
+            </div>
+        </div>
+
+        <!-- Back to Form Link -->
+        <a href="/">Back to Form</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.svg" type="image/x-icon">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <h1>Welcome to FastAPI + HTML</h1>
+    
+
+    <div>
+        <h1>Login Form</h1>
+        <!-- <form action="/submit-form" method="post"> -->
+        <form action="/welcome" method="post">
+            <input type="text" name="username" placeholder="Enter your name" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div>
+        <h1>Backpack Cost Prediction</h1>
+        <form action="/predict" method="post">
+            <!-- <label for="Brand">Brand:</label>
+            <select name="Brand" id="Brand">
+                <option value="Jansport">Jansport</option>
+                <option value="Under Armour">Under Armour</option>
+                <option value="Nike">Nike</option>
+                <option value="Adidas">Adidas</option>
+                <option value="Puma">Puma</option>
+                <option value="None">Not Known</option>
+            </select> -->
+            
+            <!-- <label for="Material">Material:</label>
+            <select name="Material" id="Material">
+                <option value="Leather">Leather</option>
+                <option value="Canvas">Canvas</option>
+                <option value="Nylon">Nylon</option>
+                <option value="Polyester">Polyester</option>
+                <option value="None">Not Known</option>
+            </select> -->
+            <!-- Size Dropdown -->
+            <label>Brand:</label>
+            <select name="brand">
+                {% for item in ['Jansport', 'Under Armour', 'Nike', 'Adidas', 'Puma'] %}
+                    <option value="{{ 'None' if item is none else item }}">
+                        {{ 'Not Known' if item is none else item }}
+                    </option>
+                {% endfor %}
+            </select>
+            <label>Size:</label>
+            <select name="size">
+                {% for item in ['Medium', 'Small', 'Large', None] %}
+                    <option value="{{ 'None' if item is none else item }}">
+                        {{ 'Not Known' if item is none else item }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Compartments Dropdown -->
+            <label>Compartments:</label>
+            <select name="compartments">
+                {% for item in [1,2,3,4,5,6,7,8,9,10] %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Laptop Compartment Dropdown -->
+            <label>Laptop Compartment:</label>
+            <select name="laptop_compartment">
+                {% for item in ['Yes', 'No', None] %}
+                    <option value="{{ 'None' if item is none else item }}">
+                        {{ 'Not Known' if item is none else item }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Waterproof Dropdown -->
+            <label>Waterproof:</label>
+            <select name="waterproof">
+                {% for item in ['No', 'Yes', None] %}
+                    <option value="{{ 'None' if item is none else item }}">
+                        {{ 'Not Known' if item is none else item }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Style Dropdown -->
+            <label>Style:</label>
+            <select name="style">
+                {% for item in ['Tote', 'Messenger', 'Backpack', None] %}
+                    <option value="{{ 'None' if item is none else item }}">
+                        {{ 'Not Known' if item is none else item }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Color Dropdown -->
+            <label>Color:</label>
+            <select name="color">
+                {% for item in ['Black', 'Green', 'Red', 'Blue', 'Gray', 'Pink', None] %}
+                    <option value="{{ 'None' if item is none else item }}">
+                        {{ 'Not Known' if item is none else item }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label>Weight Capacity (kg):</label> <input type="number" name="weight_capacity" step="any" min="0" pattern="[0-9]+([\.,][0-9]+)?"
+           placeholder="Optional (default: 18kg)">
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div>
+        <details>
+            <summary>Click to reveal more information</summary>
+            <p>This is the hidden content that becomes visible when the user clicks.</p>
+          </details>
+          
+    </div>
+
+    <div><a href="{{ url_for('about') }}">About Us</a></div>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.svg" type="image/x-icon">
+    <title>{{ title }}</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-container {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        input, select, button {
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            padding: 1rem 2rem;
+        }
+
+        button:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+        }
+
+        details {
+            margin: 2rem 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+ 
+        button {
+            padding: 0.75rem 1.5rem;  /* Reduced from 1rem 2rem */
+            font-size: 0.9rem;         /* Slightly smaller text */
+            margin-top: 1.5rem;        /* Added top gap */
+            width: fit-content;        /* Auto-width based on content */
+        }
+
+        /* Optional: Add transition for smooth hover effect */
+        button {
+            transition: all 0.2s ease-in-out;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Backpack Cost Prediction</h1>
+
+        <!-- <div class="form-container">
+            <div class="login-form">
+                <h2>Login Form</h2>
+                <form action="/welcome" method="post">
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div> -->
+
+            <div class="prediction-form">
+                <!-- <h2>Backpack Cost Prediction</h2> -->
+                <form action="/predict" method="post">
+                    <div class="grid-2">
+
+                        <!-- Form groups here -->
+                        <div class="form-group">
+                            <label>Brand:</label>
+                            <select name="brand">
+                                {% for item in ['Jansport', 'Under Armour', 'Nike', 'Adidas', 'Puma', None] %}
+                                    <option value="{{ 'None' if item is none else item }}">
+                                        {{ 'Not Known' if item is none else item }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Material:</label>
+                            <select name="material">
+                                {% for item in ['Leather', 'Canvas', 'Nylon', 'Polyester', None] %}
+                                    <option value="{{ 'None' if item is none else item }}">
+                                        {{ 'Not Known' if item is none else item }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Size:</label>
+                            <select name="size">
+                                {% for item in ['Medium', 'Small', 'Large', None] %}
+                                    <option value="{{ 'None' if item is none else item }}">
+                                        {{ 'Not Known' if item is none else item }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Compartments Dropdown -->
+                        <div class="form-group">
+                        <label>Compartments:</label>
+                        <select name="compartments">
+                            {% for item in [1,2,3,4,5,6,7,8,9,10] %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select></div>
+
+                        <!-- Laptop Compartment Dropdown -->
+                        <div class="form-group">
+                        <label>Laptop Compartment:</label>
+                        <select name="laptop_compartment">
+                            {% for item in ['Yes', 'No', None] %}
+                                <option value="{{ 'None' if item is none else item }}">
+                                    {{ 'Not Known' if item is none else item }}
+                                </option>
+                            {% endfor %}
+                        </select></div>
+
+                        <!-- Waterproof Dropdown -->
+                        <div class="form-group">
+                        <label>Waterproof:</label>
+                        <select name="waterproof">
+                            {% for item in ['No', 'Yes', None] %}
+                                <option value="{{ 'None' if item is none else item }}">
+                                    {{ 'Not Known' if item is none else item }}
+                                </option>
+                            {% endfor %}
+                        </select></div>
+
+                        <!-- Style Dropdown -->
+                        <div class="form-group">
+                        <label>Style:</label>
+                        <select name="style">
+                            {% for item in ['Tote', 'Messenger', 'Backpack', None] %}
+                                <option value="{{ 'None' if item is none else item }}">
+                                    {{ 'Not Known' if item is none else item }}
+                                </option>
+                            {% endfor %}
+                        </select></div>
+
+                        <!-- Color Dropdown -->
+                        <div class="form-group">
+                        <label>Color:</label>
+                        <select name="color">
+                            {% for item in ['Black', 'Green', 'Red', 'Blue', 'Gray', 'Pink', None] %}
+                                <option value="{{ 'None' if item is none else item }}">
+                                    {{ 'Not Known' if item is none else item }}
+                                </option>
+                            {% endfor %}
+                        </select></div>
+
+                        <div class="form-group">
+                        <label>Weight Capacity (kg):</label> <input type="number" name="weight_capacity" step="any" min="0" pattern="[0-9]+([\.,][0-9]+)?"
+                    placeholder="Optional (default: 18kg)">
+                        
+                    </div>
+                    <div class="form-group" style="margin-top: .8rem;">
+                        <button type="submit">Predict Cost</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <details>
+            <summary>Additional Information</summary>
+            <p style="margin-top: 1rem;">Let me know if you face bug! </p>
+        </details>
+
+        <a href="{{ url_for('about') }}">About Us</a>
+    </div>
+</body>
+</html>
