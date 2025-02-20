@@ -51,5 +51,5 @@ jobs:
             # pip install pytest
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run code
-        run: uvicorn app:main --reload &
+        run: uvicorn main:app --reload &
           
