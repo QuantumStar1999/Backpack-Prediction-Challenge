@@ -62,5 +62,7 @@ jobs:
       - name: Check NPM versions
         run: npm --version
       - name: Install vercel
-        run: npm install -g vercel && vercel
+        run: npm install -g vercel
+      - name: Vercel login
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }}
           
