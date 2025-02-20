@@ -41,6 +41,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        
       - name: Setup Python 3.12
         uses: actions/setup-python@v3
         with:
@@ -61,5 +62,5 @@ jobs:
       - name: Check NPM versions
         run: npm --version
       - name: Install vercel
-        run: npm install -g vercel
+        run: npm install -g vercel && vercel
           
