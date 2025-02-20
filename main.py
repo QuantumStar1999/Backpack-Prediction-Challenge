@@ -27,21 +27,6 @@ async def home(request: Request):
 async def about(request: Request):
     return templates.TemplateResponse("about.html", {"request": request, "title": "About Us"})
 
-
-
-
-@app.post("/submit-form")
-async def handle_form(username: str = Form(...), password: str = Form(...)):
-    return {"username": username, "password": password}
-
-# Handle form submission
-@app.post("/welcome", response_class=HTMLResponse)
-async def welcome_user( request: Request, username: str = Form(...)):
-    return templates.TemplateResponse(
-        "welcome.html",
-        {"request": request, "username": username}
-    )
-
 model = Predictor()
 
 @app.post("/predict", response_class=HTMLResponse)
@@ -75,13 +60,8 @@ async def predict_price(
     }
     try:
         prediction = model.predict(data)
-        pass
     except Exception as e:
         logger.logging.info(f"Error has occured! {e}")
-    # prediction['request'] = request
-    # return templates.TemplateResponse("result.html", prediction)
-    logger.logging.info(f"{prediction}")
-    # prediction = 100  # Replace with actual prediction logic
 
     # Render the result in an HTML template
     return templates.TemplateResponse(
@@ -104,62 +84,3 @@ async def predict_price(
             'xgbrf_prediction' : prediction.get('xgbrf',0.00),            
 
         })
-"""
-@app.post("/predict", response_class=HTMLResponse)
-async def predict_price(
-    request: Request,
-    brand: str = Form(...),
-    material: str = Form(...),
-    size: str = Form(...),
-    compartments: int = Form(...),
-    laptop_compartment: str = Form(...),
-    waterproof: str = Form(...),
-    style: str = Form(...),
-    color: str = Form(...),
-    weight_capacity: str = Form("")
-):
-    try:
-        weight = float(weight_capacity) if weight_capacity else 18.00
-    except ValueError:
-        logger.logging.info(f"Weight({weight_capacity}) cannot be converted into float type!")
-        weight = 18.00
-
-    data = {
-        'Brand': brand,
-        'Material': material,
-        'Size': size,
-        'Compartments': compartments,
-        'Laptop Compartment': laptop_compartment,
-        'Waterproof': waterproof,
-        'Style': style,
-        'Color': color,
-        'Weight Capacity (kg)': weight,
-    }
-
-    logger.logging.info(f"Data received from form: {data}")  # Log the input data
-
-    model = None # Predictor()
-    try:
-        prediction = 100 # model.predict(data)
-        logger.logging.info(f"Prediction result: {prediction}")  # Log the prediction result
-    except Exception as e:
-        logger.logging.error(f"Error during prediction: {e}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-    return templates.TemplateResponse(
-        "result.html",
-        {
-            "request": request,
-            "brand": brand,
-            "material" : material,
-            "size": size,
-            "compartments": compartments,
-            "laptop_compartment": laptop_compartment,
-            "waterproof": waterproof,
-            "style": style,
-            "color": color,
-            "weight_capacity": weight_capacity,
-            "prediction": prediction #prediction.get('final prediction', 'N/A')  # Use the final prediction
-        }
-    )
-"""

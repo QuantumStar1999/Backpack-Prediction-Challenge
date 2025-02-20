@@ -1,0 +1,11 @@
+.github
+logs
+*.logs
+*.log
+demo.py
+project_template.py
+.venv
+*.md
+templates/about.html
+templates/welcome.html
+templates/test.html
