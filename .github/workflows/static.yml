@@ -64,5 +64,5 @@ jobs:
       - name: Install vercel
         run: npm install -g vercel
       - name: Vercel login
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }}
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --yes
           
