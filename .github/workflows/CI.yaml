@@ -2,7 +2,7 @@ name: Deploy Backpack Prediction
 
 on:
   push:
-    branches: main
+    branches: master
 
 jobs:
   deploy:
