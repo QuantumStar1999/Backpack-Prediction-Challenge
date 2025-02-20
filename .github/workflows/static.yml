@@ -26,7 +26,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}:8000
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -52,4 +52,14 @@ jobs:
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run code
         run: uvicorn main:app --reload &
+
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' 
+      - name: Check NPM versions
+        run: npm --version
+      - name: Install vercel
+        run: npm install -g vercel
           
