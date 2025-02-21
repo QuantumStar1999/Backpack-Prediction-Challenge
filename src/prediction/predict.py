@@ -13,7 +13,8 @@ class ModelConfig:
     def __init__(self):
         self.models: List[str] = ['adaboost', 'xgb', 'lgbm', 'xgbrf']
         self.oob_model: str = 'oob_model'
-        self.root_path: str = os.path.join(os.getcwd(),'output/models')
+        self.root_path: str = 'output/models'
+        # self.root_path: str = os.path.join(os.getcwd(),'output/models')
 
 class Predictor:
     def __init__(self, models: List[str] = None)->None:
@@ -215,8 +216,8 @@ class Predictor:
         self._predict_models()
         result = self._predicted_values.copy()
         for model_name in self.models:
-            result[model_name] = float(result[model_name][0].round(2))
-        result['final prediction'] = float(self._oob_pred[0].round(2))
+            result[model_name] = str(result[model_name][0].round(2))
+        result['final prediction'] = str(self._oob_pred[0].round(2))
 
         return result
 
