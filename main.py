@@ -11,7 +11,7 @@ from typing import Optional
 import pandas as pd
 import time
 app = FastAPI()
-
+prediction = None
 
 # Mount static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
