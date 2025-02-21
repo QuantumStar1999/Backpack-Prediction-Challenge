@@ -11,7 +11,6 @@ from typing import Optional
 import pandas as pd
 import time
 app = FastAPI()
-prediction = None
 
 # Mount static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -58,10 +57,12 @@ async def predict_price(
             'Color' : color,
             'Weight Capacity (kg)' : weight,
     }
+    prediction = {}
     try:
         prediction = model.predict(data)
     except Exception as e:
         logger.logging.info(f"Error has occured! {e}")
+        prediction = {}
 
     # Render the result in an HTML template
     return templates.TemplateResponse(
