@@ -9,6 +9,7 @@ COPY requirements.txt .
 
 # Install dependencies
 RUN python -m pip install -r requirements.txt
+RUN apt-get update && apt-get install -y libgomp1
 
 # Copy the rest of the application code
 COPY . .
