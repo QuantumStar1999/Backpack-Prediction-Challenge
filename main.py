@@ -45,6 +45,7 @@ async def predict_price(
         weight = float(weight_capacity) if weight_capacity else 18.00
     except ValueError:
         logger.logging.info(f"Weight({weight_capacity}) can not be converted into float type!")
+        print(e)
         weight = 18.00
     data = {
             'Brand' : brand,
@@ -62,6 +63,7 @@ async def predict_price(
         prediction = model.predict(data)
     except Exception as e:
         logger.logging.info(f"Error has occured! {e}")
+        print(e)
         prediction = {}
 
     # Render the result in an HTML template
