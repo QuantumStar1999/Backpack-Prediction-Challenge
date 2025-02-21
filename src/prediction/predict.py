@@ -13,8 +13,8 @@ class ModelConfig:
     def __init__(self):
         self.models: List[str] = ['adaboost', 'xgb', 'lgbm', 'xgbrf']
         self.oob_model: str = 'oob_model'
-        self.root_path: str = 'output/models'
-        # self.root_path: str = os.path.join(os.getcwd(),'output/models')
+        # self.root_path: str = 'output/models'
+        self.root_path: str = os.path.join(os.getcwd(),'output/models')
 
 class Predictor:
     def __init__(self, models: List[str] = None)->None:
@@ -124,6 +124,8 @@ class Predictor:
                 logger.logging.info(f"{model_name}.pkl is successfully read!")
             except Exception as e:
                 logger.logging.info(f"{model_name}.pkl is not found in output/models. Error: {e}")
+                print(f"Model {model_name} failed to load due to {e}")
+        
         try:
             with open(f'{self.root_path}/{self._oob_model_name}.pkl','rb') as f:
                 self._oob_model = pickle.load(f)

@@ -7,9 +7,7 @@ from fastapi import Form
 from src.logging import logger
 from src.prediction.predict import Predictor
 
-from typing import Optional
-import pandas as pd
-import time
+import uvicorn, os, sys 
 app = FastAPI()
 
 # Mount static files (CSS, JS, images)
@@ -87,3 +85,7 @@ async def predict_price(
             'xgbrf_prediction' : prediction.get('xgbrf',0.00),            
 
         })
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Use Render's PORT or default to 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
